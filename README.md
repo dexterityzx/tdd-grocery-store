@@ -12,6 +12,7 @@ This exercise is intentionally left open ended.  Within you will find a skeleton
  - API list a customer's orders
  - API saving a customer
  - API saving a product
+ - Create Unit Tests to exercise the above
 
 # Expectations
 Implement the above listed requirements in a manner you see fitting.  Demonstrate design and implementation aspects you feel are important in a software project.
