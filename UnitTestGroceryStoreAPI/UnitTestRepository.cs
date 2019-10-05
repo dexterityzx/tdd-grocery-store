@@ -10,11 +10,13 @@ namespace UnitTestGroceryStoreAPI
     {
         private CustomerRepository _customerRepository;
         private OrderRepository _orderRepository;
+        private ProductRepository _productRepository;
 
         public UnitTestRepository()
         {
             _customerRepository = new CustomerRepository(Constants.DB_FILE);
             _orderRepository = new OrderRepository(Constants.DB_FILE);
+            _productRepository = new ProductRepository(Constants.DB_FILE);
         }
 
         [Theory]
@@ -39,8 +41,12 @@ namespace UnitTestGroceryStoreAPI
 
         [Theory]
         [ClassData(typeof(TestProductData))]
-        public void RepositoryCanReadDataIntoProductObject(string key, Product expectedOrder)
+        public void RepositoryCanReadDataIntoProductObject(string key, Product expectedProduct)
         {
+            Product actualProduct = _productRepository.Key(key);
+            var jsonActual = JsonConvert.SerializeObject(actualProduct);
+            var jsonExpected = JsonConvert.SerializeObject(expectedProduct);
+            Assert.Equal(jsonExpected, jsonActual);
         }
     }
 }
