@@ -1,5 +1,6 @@
 {
-  "customers": [{
+  "customers": [
+    {
       "id": 1,
       "name": "Bob"
     },
@@ -12,20 +13,24 @@
       "name": "Joe"
     }
   ],
-  "orders": [{
-    "id": 1,
-    "customerId": 1,
-    "items": [{
-        "productId": 1,
-        "quantity": 2
-      },
-      {
-        "productId": 2,
-        "quantity": 3
-      }
-    ]
-  }],
-  "products": [{
+  "orders": [
+    {
+      "id": 1,
+      "customerId": 1,
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "productId": 2,
+          "quantity": 3
+        }
+      ]
+    }
+  ],
+  "products": [
+    {
       "id": 1,
       "description": "apple",
       "price": 0.50
