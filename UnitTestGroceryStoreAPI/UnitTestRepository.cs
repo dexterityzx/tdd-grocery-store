@@ -1,58 +1,11 @@
 ﻿using GroceryStoreAPI.Entities;
 using GroceryStoreAPI.Repositories;
 using Newtonsoft.Json;
-using System.Collections.Generic;
+using UnitTestGroceryStoreAPI.TestData;
 using Xunit;
 
 namespace UnitTestGroceryStoreAPI
 {
-    public class TestCustomerData : TheoryData<string, Customer>
-    {
-        public TestCustomerData()
-        {
-            Add("1", new Customer()
-            {
-                Id = "1",
-                Name = "Bob"
-            });
-            Add("2", new Customer()
-            {
-                Id = "2",
-                Name = "Mary"
-            });
-            Add("3", new Customer()
-            {
-                Id = "3",
-                Name = "Joe"
-            });
-        }
-    }
-
-    public class TestOrderData : TheoryData<string, Order>
-    {
-        public TestOrderData()
-        {
-            Add("1", new Order()
-            {
-                Id = "1",
-                CustomerId = "1",
-                Items = new List<OrederItem>()
-                {
-                    new OrederItem()
-                    {
-                        ProductId = "1",
-                        Quantity = 2
-                    },
-                    new OrederItem()
-                    {
-                        ProductId = "2",
-                        Quantity = 3
-                    }
-                }
-            });
-        }
-    }
-
     public class UnitTestRepository
     {
         private CustomerRepository _customerRepository;

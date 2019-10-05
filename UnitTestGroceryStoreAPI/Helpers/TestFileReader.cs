@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace UnitTestGroceryStoreAPI
+namespace UnitTestGroceryStoreAPI.Helpers
 {
     internal class TestFileReader
     {

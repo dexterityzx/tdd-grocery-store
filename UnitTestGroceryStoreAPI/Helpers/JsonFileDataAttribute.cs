@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using Xunit.Sdk;
 
-namespace UnitTestGroceryStoreAPI
+namespace UnitTestGroceryStoreAPI.Helpers
 {
     public class JsonFileDataAttribute : DataAttribute
     {

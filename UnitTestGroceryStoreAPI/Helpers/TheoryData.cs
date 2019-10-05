@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace UnitTestGroceryStoreAPI
+namespace UnitTestGroceryStoreAPI.Helpers
 {
     public class TheoryData<T1, T2, T3> : TheoryData
     {

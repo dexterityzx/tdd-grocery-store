@@ -2,6 +2,6 @@
 {
     internal static class Constants
     {
-        public const string DB_FILE = "TestFiles/database.json";
+        public const string DB_FILE = "TestData/database.json";
     }
 }
