@@ -27,7 +27,7 @@ namespace GroceryStoreAPI.Repositories
 
         public static IEnumerable<TEntity> ToEnumerable<TEntity>(string jsonData)
         {
-            Schema data = JsonConvert.DeserializeObject<Schema>(jsonData);
+            DataSchema data = JsonConvert.DeserializeObject<DataSchema>(jsonData);
 
             var entityName = typeof(TEntity).Name;
             switch (entityName)

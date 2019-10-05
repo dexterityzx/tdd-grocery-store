@@ -12,6 +12,8 @@ namespace GroceryStoreAPI.Repositories
             _data = RepositoryHelper.ToEnumerable<TEntity>(json);
         }
 
+        public abstract TEntity Key(int key);
+
         public abstract TEntity Key(string key);
 
         public IEnumerable<TEntity> All()

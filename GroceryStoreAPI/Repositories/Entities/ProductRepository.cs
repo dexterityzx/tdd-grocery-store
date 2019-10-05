@@ -13,9 +13,14 @@ namespace GroceryStoreAPI.Repositories
         {
             if (int.TryParse(key, out int intKey))
             {
-                return _data.Where(product => product.Id == intKey).FirstOrDefault();
+                return Key(intKey);
             }
             return null;
+        }
+
+        public override Product Key(int key)
+        {
+            return _data.Where(product => product.Id == key).FirstOrDefault();
         }
     }
 }

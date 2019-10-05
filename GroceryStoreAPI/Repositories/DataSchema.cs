@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GroceryStoreAPI.Repositories
 {
-    public class Schema
+    public class DataSchema
     {
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<Customer> Customers { get; set; }

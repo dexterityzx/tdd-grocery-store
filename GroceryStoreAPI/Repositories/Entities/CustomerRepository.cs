@@ -9,13 +9,22 @@ namespace GroceryStoreAPI.Repositories
         {
         }
 
+        public CustomerRepository() : base()
+        {
+        }
+
         public override Customer Key(string key)
         {
             if (int.TryParse(key, out int intKey))
             {
-                return _data.Where(customer => customer.Id == intKey).FirstOrDefault();
+                return Key(intKey);
             }
             return null;
+        }
+
+        public override Customer Key(int key)
+        {
+            return _data.Where(customer => customer.Id == key).FirstOrDefault();
         }
     }
 }
