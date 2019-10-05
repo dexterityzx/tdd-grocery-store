@@ -17,6 +17,7 @@
     {
       "id": 1,
       "customerId": 1,
+      "date": "2019/05/01",
       "items": [
         {
           "productId": 1,
@@ -25,6 +26,21 @@
         {
           "productId": 2,
           "quantity": 3
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "customerId": 2,
+      "date": "2019/05/02",
+      "items": [
+        {
+          "productId": 2,
+          "quantity": 3
+        },
+        {
+          "productId": 3,
+          "quantity": 4
         }
       ]
     }

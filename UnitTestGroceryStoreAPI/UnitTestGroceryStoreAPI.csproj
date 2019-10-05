@@ -8,11 +8,12 @@
 
   <ItemGroup>
     <None Remove="database.json" />
+    <None Remove="TestData\database.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="TestData\database.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>

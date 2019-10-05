@@ -1,4 +1,5 @@
 ﻿using GroceryStoreAPI.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GroceryStoreAPI.Repositories
@@ -6,6 +7,10 @@ namespace GroceryStoreAPI.Repositories
     public class OrderRepository : BaseRepository<Order>
     {
         public OrderRepository(string file) : base(file)
+        {
+        }
+
+        public OrderRepository() : base()
         {
         }
 
@@ -21,6 +26,11 @@ namespace GroceryStoreAPI.Repositories
         public override Order Key(int key)
         {
             return _data.Where(order => order.Id == key).FirstOrDefault();
+        }
+
+        public IEnumerable<Order> GetByDate(string date)
+        {
+            return _data.Where(order => order.Date == date);
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using GroceryStoreAPI.Entities;
 using GroceryStoreAPI.Repositories;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnitTestGroceryStoreAPI.TestData;
 using Xunit;
 
@@ -21,7 +24,7 @@ namespace UnitTestGroceryStoreAPI
 
         [Theory]
         [ClassData(typeof(TestCustomerData))]
-        public void RepositoryCanReadDataIntoCustomerObject(string key, Customer expectedCustomer)
+        public void CustomerRepositoryCanRetrieveCustomerByKey(string key, Customer expectedCustomer)
         {
             Customer actualCustomer = _customerRepository.Key(key);
             var jsonActual = JsonConvert.SerializeObject(actualCustomer);
@@ -31,7 +34,7 @@ namespace UnitTestGroceryStoreAPI
 
         [Theory]
         [ClassData(typeof(TestOrderData))]
-        public void RepositoryCanReadDataIntoOrderObject(string key, Order expectedOrder)
+        public void OrderRepositoryCanRetrieveOrderByKey(string key, Order expectedOrder)
         {
             Order actualOrder = _orderRepository.Key(key);
             var jsonActual = JsonConvert.SerializeObject(actualOrder);
@@ -40,8 +43,27 @@ namespace UnitTestGroceryStoreAPI
         }
 
         [Theory]
+        [ClassData(typeof(TestOrderDataByDate))]
+        public void OrderRepositoryCanRetrieveOrderByDate(string inputDate, string expectedDate)
+        {
+            if (DateTime.TryParse(inputDate, out DateTime date))
+            {
+                List<Order> actualOrder = _orderRepository.GetByDate(inputDate).ToList();
+                actualOrder.ForEach(order =>
+                {
+                    Assert.Equal(expectedDate, order.Date);
+                });
+            }
+            else
+            {
+                // false to parse input date
+                Assert.True(false);
+            }
+        }
+
+        [Theory]
         [ClassData(typeof(TestProductData))]
-        public void RepositoryCanReadDataIntoProductObject(string key, Product expectedProduct)
+        public void ProductRepositoryCanRetrieveProductByKey(string key, Product expectedProduct)
         {
             Product actualProduct = _productRepository.Key(key);
             var jsonActual = JsonConvert.SerializeObject(actualProduct);
