@@ -23,8 +23,8 @@ namespace GroceryStoreAPI.Controllers
             return _customerRepository.All();
         }
 
-        // GET api/customers
-        [HttpGet]
+        // GET api/customers/:id
+        [HttpGet("{id}")]
         public Customer Get(int id)
         {
             return _customerRepository.Key(id);
