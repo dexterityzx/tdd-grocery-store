@@ -2,6 +2,7 @@
 using GroceryStoreAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GroceryStoreAPI.Controllers
 {
@@ -10,24 +11,50 @@ namespace GroceryStoreAPI.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly CustomerRepository _customerRepository;
+        private readonly OrderRepository _orderRepository;
 
         public CustomersController()
         {
             _customerRepository = new CustomerRepository();
+            _orderRepository = new OrderRepository();
         }
 
         // GET api/customers
         [HttpGet]
-        public IEnumerable<Customer> Get()
+        public ActionResult<IEnumerable<Customer>> Get()
         {
-            return _customerRepository.All();
+            return new OkObjectResult(_customerRepository.All());
         }
 
         // GET api/customers/:id
         [HttpGet("{id}")]
-        public Customer Get(int id)
+        public ActionResult<Customer> Get(int id)
         {
-            return _customerRepository.Key(id);
+            var customer = _customerRepository.Key(id);
+            if (customer != null)
+            {
+                return new OkObjectResult(customer);
+            }
+            return NotFound();
+        }
+
+        // GET api/customers/:id/orders
+        [HttpGet("{id}/orders")]
+        public ActionResult<IEnumerable<Order>> GetOrders(int id)
+        {
+            var customer = _customerRepository.Key(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var orders = _orderRepository.GetByCustomerId(customer.Id).ToList();
+            if (orders.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return new OkObjectResult(orders);
         }
     }
 }

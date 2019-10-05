@@ -37,7 +37,7 @@ namespace GroceryStoreAPI.Controllers
             return NotFound();
         }
 
-        // GET api/orders/:id
+        // GET api/orders/date/:date
         [HttpGet("date/{date}")]
         public ActionResult<Order> Get(string date)
         {

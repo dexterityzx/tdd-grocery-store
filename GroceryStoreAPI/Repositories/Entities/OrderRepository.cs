@@ -32,5 +32,10 @@ namespace GroceryStoreAPI.Repositories
         {
             return _data.Where(order => order.Date == date);
         }
+
+        public IEnumerable<Order> GetByCustomerId(int customerId)
+        {
+            return _data.Where(order => order.CustomerId == customerId);
+        }
     }
 }

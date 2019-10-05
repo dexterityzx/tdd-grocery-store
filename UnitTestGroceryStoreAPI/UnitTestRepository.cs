@@ -62,6 +62,17 @@ namespace UnitTestGroceryStoreAPI
         }
 
         [Theory]
+        [ClassData(typeof(TestOrderDataByCustomerIdData))]
+        public void OrderRepositoryCanRetrieveOrderByCustomerId(int customerId, List<int> expectedOrderIds)
+        {
+            List<Order> actualOrders = _orderRepository.GetByCustomerId(customerId).ToList();
+            actualOrders.ForEach(order =>
+            {
+                Assert.True(expectedOrderIds.Exists(id => id == order.Id));
+            });
+        }
+
+        [Theory]
         [ClassData(typeof(TestProductData))]
         public void ProductRepositoryCanRetrieveProductByKey(string key, Product expectedProduct)
         {
