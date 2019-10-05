@@ -35,9 +35,8 @@ namespace UnitTestGroceryStoreAPI
             var customers = RepositoryHelper.ToEnumerable<Customer>(jsonStr);
             Assert.Equal(3, customers.Count());
 
-            var key = "1";
-            var customer = customers.Where(c => c.Id == key).FirstOrDefault();
-            Assert.Equal(customer.Id, key);
+            var customer = customers.Where(c => c.Id == 1).FirstOrDefault();
+            Assert.Equal(1, customer.Id);
         }
     }
 }

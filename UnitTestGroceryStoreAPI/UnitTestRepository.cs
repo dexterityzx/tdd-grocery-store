@@ -37,8 +37,9 @@ namespace UnitTestGroceryStoreAPI
             Assert.Equal(jsonExpected, jsonActual);
         }
 
-        [Fact]
-        public void RepositoryCanReadDataIntoProductObject()
+        [Theory]
+        [ClassData(typeof(TestProductData))]
+        public void RepositoryCanReadDataIntoProductObject(string key, Product expectedOrder)
         {
         }
     }

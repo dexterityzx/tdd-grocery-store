@@ -11,7 +11,11 @@ namespace GroceryStoreAPI.Repositories
 
         public override Order Key(string key)
         {
-            return _data.Where(order => order.Id == key).FirstOrDefault();
+            if (int.TryParse(key, out int intKey))
+            {
+                return _data.Where(order => order.Id == intKey).FirstOrDefault();
+            }
+            return null;
         }
     }
 }
