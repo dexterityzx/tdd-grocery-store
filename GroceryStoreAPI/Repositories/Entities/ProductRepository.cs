@@ -9,6 +9,10 @@ namespace GroceryStoreAPI.Repositories
         {
         }
 
+        public ProductRepository() : base()
+        {
+        }
+
         public override Product Key(string key)
         {
             if (int.TryParse(key, out int intKey))
