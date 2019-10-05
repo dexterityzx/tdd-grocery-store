@@ -1,36 +1,50 @@
 ﻿using GroceryStoreAPI.Entities;
 using GroceryStoreAPI.Repositories;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace UnitTestGroceryStoreAPI
 {
+    public class TestCustomerData : TheoryData<string, Customer>
+    {
+        public TestCustomerData()
+        {
+            Add("1", new Customer()
+            {
+                Id = "1",
+                Name = "Bob"
+            });
+            Add("2", new Customer()
+            {
+                Id = "2",
+                Name = "Mary"
+            });
+            Add("3", new Customer()
+            {
+                Id = "3",
+                Name = "Joe"
+            });
+        }
+    }
+
     public class UnitTestRepository
     {
         private CustomerRepository _customerRepository;
 
         public UnitTestRepository()
         {
-            _customerRepository = new CustomerRepository();
+            _customerRepository = new CustomerRepository(Constants.DB_FILE);
         }
 
-        //[Theory]
-        //[MemberData(nameof(CustomerData))]
-        //public void RepositoryCanReadDataIntoCustomerObject(Customer expectedCustomer)
-        //{
-        //    var customer = _customerRepository.Id(1);
-        //    Assert.Equal(customer.Id, expectedCustomer.Id);
-        //    Assert.Equal(customer.Name, expectedCustomer.Name);
-        //}
-
-        public static IEnumerable<Customer> CustomerData =>
-        new List<Customer>
+        [Theory]
+        [ClassData(typeof(TestCustomerData))]
+        public void RepositoryCanReadDataIntoCustomerObject(string key, Customer expectedCustomer)
         {
-            new Customer() {
-                Name = "Bob",
-                Id = "1"
-            },
-        };
+            Customer actualCustomer = _customerRepository.Key(key);
+            var jsonActual = JsonConvert.SerializeObject(actualCustomer);
+            var jsonExpected = JsonConvert.SerializeObject(expectedCustomer);
+            Assert.Equal(jsonExpected, jsonActual);
+        }
 
         [Fact]
         public void RepositoryCanReadDataIntoOrderObject()

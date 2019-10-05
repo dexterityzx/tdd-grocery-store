@@ -6,12 +6,17 @@ namespace GroceryStoreAPI.Repositories
     {
         protected readonly IEnumerable<TEntity> _data;
 
-        public BaseRepository()
+        public BaseRepository(string file = Constants.DB_FILE)
         {
-            var json = RepositoryHelper.ReadFile(Constants.DB_FILE);
+            var json = RepositoryHelper.ReadFile(file);
             _data = RepositoryHelper.ToEnumerable<TEntity>(json);
         }
 
         public abstract TEntity Key(string key);
+
+        public IEnumerable<TEntity> All()
+        {
+            return _data;
+        }
     }
 }

@@ -6,11 +6,8 @@ namespace UnitTestGroceryStoreAPI
 {
     internal class TestFileReader
     {
-        private static string FOLDER = "TestFiles";
-
-        public static async Task<string> ReadFileAsync(string fileName)
+        public static async Task<string> ReadFileAsync(string file)
         {
-            var file = Path.Combine(FOLDER, fileName);
             // Get the absolute path to the JSON file
             file = Path.IsPathRooted(file)
                 ? file
