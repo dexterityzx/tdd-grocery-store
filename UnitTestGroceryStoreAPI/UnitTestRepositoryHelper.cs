@@ -30,7 +30,7 @@ namespace UnitTestGroceryStoreAPI
         }
 
         [Fact]
-        public async void TestToEnumerable()
+        public async void TestToCollection()
         {
             var jsonStr = await RepositoryHelper.ReadFileAsync(Constants.DB_FILE);
             var customers = RepositoryHelper.ToCollection<Customer>(jsonStr);
