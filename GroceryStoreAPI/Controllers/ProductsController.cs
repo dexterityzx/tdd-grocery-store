@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace GroceryStoreAPI.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -17,6 +18,11 @@ namespace GroceryStoreAPI.Controllers
         }
 
         // GET api/products
+        /// <summary>
+        /// Gets all products.
+        /// </summary>
+        /// <returns>A list of all products.</returns>
+        /// <response code="200">Returns a list of products.</response>
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetAll()
         {
@@ -24,6 +30,13 @@ namespace GroceryStoreAPI.Controllers
         }
 
         // GET api/products/:id
+        /// <summary>
+        /// Gets a product by ID.
+        /// </summary>
+        /// <param name="id">Product ID</param>
+        /// <returns>A product.</returns>
+        /// <response code="200">Returns a product.</response>
+        /// <response code="404">Product is not found.</response>
         [HttpGet("{id}")]
         public ActionResult<Product> GetById(int id)
         {
@@ -36,8 +49,26 @@ namespace GroceryStoreAPI.Controllers
         }
 
         // PUT api/products/
+        /// <summary>
+        /// Adds a product.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /api/products
+        ///     {
+        ///         "description": "Mango",
+        ///         "price": 0.5
+        ///     }
+        ///
+        /// The id attribute will be ignored.
+        /// </remarks>
+        /// <param name="product">An object with product attributes.</param>
+        /// <returns>New product ID</returns>
+        /// <response code="200">A product is created.</response>
+        /// <response code="500">Fails to creat a product.</response>
         [HttpPut]
-        public ActionResult CreateProduct(Product product)
+        public ActionResult<int> AddProduct(Product product)
         {
             _productRepository.Add(product);
             var result = _productRepository.Save();
@@ -45,10 +76,28 @@ namespace GroceryStoreAPI.Controllers
             {
                 return StatusCode(500);
             }
-            return Accepted();
+            return new OkObjectResult(product.Id);
         }
 
         // PATCH api/products/
+        /// <summary>
+        /// Updates a product.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PATCH /api/products
+        ///     {
+        ///         "id" : 1
+        ///         "description": "Mango",
+        ///         "price": 0.5
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="product">An object with product attributes.</param>
+        /// <returns></returns>
+        /// <response code="200">A product is udpated.</response>
+        /// <response code="500">Fails to creat a product.</response>
         [HttpPatch]
         public ActionResult UpdateProduct(Product product)
         {
@@ -62,7 +111,7 @@ namespace GroceryStoreAPI.Controllers
             {
                 return StatusCode(500);
             }
-            return Accepted();
+            return Ok();
         }
     }
 }
