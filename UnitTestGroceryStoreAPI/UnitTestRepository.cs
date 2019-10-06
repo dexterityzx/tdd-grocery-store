@@ -33,6 +33,27 @@ namespace UnitTestGroceryStoreAPI
         }
 
         [Theory]
+        [ClassData(typeof(TestCustomerDataAdd))]
+        public void CustomerRepositoryCanAddCustomer(Customer customerToCreate, string customerName)
+        {
+            _customerRepository.Add(customerToCreate);
+            _customerRepository.Save();
+            var savedCustomer = _customerRepository.Key(customerToCreate.Id);
+            Assert.Equal(customerName, savedCustomer.Name);
+        }
+
+        [Theory]
+        [ClassData(typeof(TestCustomerDataUpdate))]
+        public void CustomerRepositoryCanUpdateCustomer(Customer customerToUpdate, string customerName)
+        {
+            _customerRepository = new CustomerRepository(Constants.DB_FILE_UPDATE);
+            _customerRepository.Update(customerToUpdate);
+            _customerRepository.Save();
+            var updatedCustomer = _customerRepository.Key(customerToUpdate.Id);
+            Assert.Equal(customerName, updatedCustomer.Name);
+        }
+
+        [Theory]
         [ClassData(typeof(TestOrderData))]
         public void OrderRepositoryCanRetrieveOrderByKey(string key, Order expectedOrder)
         {

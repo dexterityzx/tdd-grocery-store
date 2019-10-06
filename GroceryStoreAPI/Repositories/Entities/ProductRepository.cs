@@ -24,7 +24,12 @@ namespace GroceryStoreAPI.Repositories
 
         public override Product Key(int key)
         {
-            return _data.Where(product => product.Id == key).FirstOrDefault();
+            return _dataSet.Where(product => product.Id == key).FirstOrDefault();
+        }
+
+        public override void Add(Product entity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

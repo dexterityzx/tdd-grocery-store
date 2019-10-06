@@ -8,10 +8,20 @@
 
   <ItemGroup>
     <None Remove="database.json" />
+    <None Remove="TestData\database-update-helper.json" />
+    <None Remove="TestData\database-update.json" />
     <None Remove="TestData\database.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="TestData\database-update-helper.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="TestData\database-update.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="TestData\database.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

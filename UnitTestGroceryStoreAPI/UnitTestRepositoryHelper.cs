@@ -1,6 +1,7 @@
 using GroceryStoreAPI.Entities;
 using GroceryStoreAPI.Repositories;
 using System.Linq;
+using System.Threading.Tasks;
 using UnitTestGroceryStoreAPI.Helpers;
 using Xunit;
 
@@ -32,11 +33,38 @@ namespace UnitTestGroceryStoreAPI
         public async void TestToEnumerable()
         {
             var jsonStr = await RepositoryHelper.ReadFileAsync(Constants.DB_FILE);
-            var customers = RepositoryHelper.ToEnumerable<Customer>(jsonStr);
-            Assert.Equal(3, customers.Count());
+            var customers = RepositoryHelper.ToDataSet<Customer>(jsonStr);
+            Assert.True(customers.Count() > 0);
 
             var customer = customers.Where(c => c.Id == 1).FirstOrDefault();
             Assert.Equal(1, customer.Id);
+        }
+
+        [Fact]
+        public async void TestWriteFile()
+        {
+            var expectedJsonText = await TestFileReader.ReadFileAsync(Constants.DB_FILE_UPDATE_HELPER);
+
+            RepositoryHelper.WriteFile(Constants.DB_FILE_UPDATE_HELPER, expectedJsonText);
+            var actualJsonText = RepositoryHelper.ReadFile(Constants.DB_FILE_UPDATE_HELPER);
+
+            Assert.Equal(expectedJsonText, actualJsonText);
+        }
+
+        [Fact]
+        public async void TestWriteFileMutipleThread()
+        {
+            var expectedJsonText = await TestFileReader.ReadFileAsync(Constants.DB_FILE);
+
+            var tasks = new Task[10];
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                tasks[i] = Task.Run(() => RepositoryHelper.WriteFile(Constants.DB_FILE_UPDATE, expectedJsonText));
+            }
+            Task.WaitAll(tasks);
+
+            var actualJsonText = RepositoryHelper.ReadFile(Constants.DB_FILE_UPDATE);
+            Assert.Equal(expectedJsonText, actualJsonText);
         }
     }
 }

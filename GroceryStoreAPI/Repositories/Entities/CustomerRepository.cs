@@ -5,7 +5,7 @@ namespace GroceryStoreAPI.Repositories
 {
     public class CustomerRepository : BaseRepository<Customer>
     {
-        public CustomerRepository(string file) : base(file)
+        public CustomerRepository(string file = Constants.DB_FILE) : base(file)
         {
         }
 
@@ -24,7 +24,19 @@ namespace GroceryStoreAPI.Repositories
 
         public override Customer Key(int key)
         {
-            return _data.Where(customer => customer.Id == key).FirstOrDefault();
+            return _dataSet.Where(customer => customer.Id == key).FirstOrDefault();
+        }
+
+        public override void Add(Customer newCustomer)
+        {
+            var lastCustomer = _dataSet.OrderByDescending(customer => customer.Id).FirstOrDefault();
+            var id = 0;
+            if (lastCustomer != null)
+            {
+                id = lastCustomer.Id + 1;
+            }
+            newCustomer.Id = id;
+            base.Add(newCustomer);
         }
     }
 }
