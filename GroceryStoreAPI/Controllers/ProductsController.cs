@@ -18,14 +18,14 @@ namespace GroceryStoreAPI.Controllers
 
         // GET api/products
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        public ActionResult<IEnumerable<Product>> GetAll()
         {
             return new OkObjectResult(_productRepository.All());
         }
 
         // GET api/products/:id
         [HttpGet("{id}")]
-        public ActionResult<Product> Get(int id)
+        public ActionResult<Product> GetById(int id)
         {
             var product = _productRepository.Key(id);
             if (product != null)

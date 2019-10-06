@@ -20,14 +20,14 @@ namespace GroceryStoreAPI.Controllers
 
         // GET api/orders
         [HttpGet]
-        public ActionResult<IEnumerable<Order>> Get()
+        public ActionResult<IEnumerable<Order>> GetAll()
         {
             return new OkObjectResult(_orderRepository.All());
         }
 
         // GET api/orders/:id
         [HttpGet("{id}")]
-        public ActionResult<Order> Get(int id)
+        public ActionResult<Order> GetbyId(int id)
         {
             var order = _orderRepository.Key(id);
             if (order != null)
@@ -39,7 +39,7 @@ namespace GroceryStoreAPI.Controllers
 
         // GET api/orders/date/:date
         [HttpGet("date/{date}")]
-        public ActionResult<Order> Get(string date)
+        public ActionResult<Order> GetByDate(string date)
         {
             if (DateTime.TryParse(date, out DateTime parsedDate))
             {

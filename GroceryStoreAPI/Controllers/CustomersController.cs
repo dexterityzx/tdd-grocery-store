@@ -21,14 +21,14 @@ namespace GroceryStoreAPI.Controllers
 
         // GET api/customers
         [HttpGet]
-        public ActionResult<IEnumerable<Customer>> Get()
+        public ActionResult<IEnumerable<Customer>> GetAll()
         {
             return new OkObjectResult(_customerRepository.All());
         }
 
         // GET api/customers/:id
         [HttpGet("{id}")]
-        public ActionResult<Customer> Get(int id)
+        public ActionResult<Customer> GetById(int id)
         {
             var customer = _customerRepository.Key(id);
             if (customer != null)
