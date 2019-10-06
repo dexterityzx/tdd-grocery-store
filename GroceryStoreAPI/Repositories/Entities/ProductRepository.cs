@@ -27,9 +27,16 @@ namespace GroceryStoreAPI.Repositories
             return _dataSet.Where(product => product.Id == key).FirstOrDefault();
         }
 
-        public override void Add(Product entity)
+        public override void Add(Product newProduct)
         {
-            throw new System.NotImplementedException();
+            var lastProduct = _dataSet.OrderByDescending(product => product.Id).FirstOrDefault();
+            var id = 0;
+            if (lastProduct != null)
+            {
+                id = lastProduct.Id + 1;
+            }
+            newProduct.Id = id;
+            base.Add(newProduct);
         }
     }
 }

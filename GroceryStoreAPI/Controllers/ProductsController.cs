@@ -27,12 +27,42 @@ namespace GroceryStoreAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<Product> Get(int id)
         {
-            var Product = _productRepository.Key(id);
-            if (Product != null)
+            var product = _productRepository.Key(id);
+            if (product != null)
             {
-                return new OkObjectResult(Product);
+                return new OkObjectResult(product);
             }
             return NotFound();
+        }
+
+        // PUT api/products/
+        [HttpPut]
+        public ActionResult CreateProduct(Product product)
+        {
+            _productRepository.Add(product);
+            var result = _productRepository.Save();
+            if (result == 0)
+            {
+                return StatusCode(500);
+            }
+            return Accepted();
+        }
+
+        // PATCH api/products/
+        [HttpPatch]
+        public ActionResult UpdateProduct(Product product)
+        {
+            if (!_productRepository.Exist(product.Id))
+            {
+                return NotFound();
+            }
+            _productRepository.Update(product);
+            var result = _productRepository.Save();
+            if (result == 0)
+            {
+                return StatusCode(500);
+            }
+            return Accepted();
         }
     }
 }

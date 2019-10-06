@@ -109,5 +109,28 @@ namespace UnitTestGroceryStoreAPI
             var jsonExpected = JsonConvert.SerializeObject(expectedProduct);
             Assert.Equal(jsonExpected, jsonActual);
         }
+
+        [Theory]
+        [ClassData(typeof(TestProductDataAdd))]
+        public void ProductRepositoryCanAddProduct(Product productToCreate, Product expectedProduct)
+        {
+            _productRepository.Add(productToCreate);
+            _productRepository.Save();
+            var savedProduct = _productRepository.Key(productToCreate.Id);
+            Assert.Equal(expectedProduct.Description, savedProduct.Description);
+            Assert.Equal(expectedProduct.Price, savedProduct.Price);
+        }
+
+        [Theory]
+        [ClassData(typeof(TestProductDataUpdate))]
+        public void ProductRepositoryCanUpdateProduct(Product productToUpdate, Product expectedProduct)
+        {
+            _productRepository = new ProductRepository(Constants.DB_FILE_UPDATE);
+            _productRepository.Update(productToUpdate);
+            _productRepository.Save();
+            var updatedProduct = _productRepository.Key(productToUpdate.Id);
+            Assert.Equal(expectedProduct.Description, updatedProduct.Description);
+            Assert.Equal(expectedProduct.Price, updatedProduct.Price);
+        }
     }
 }
