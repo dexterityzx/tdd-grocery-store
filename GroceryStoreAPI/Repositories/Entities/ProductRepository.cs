@@ -24,12 +24,12 @@ namespace GroceryStoreAPI.Repositories
 
         public override Product Key(int key)
         {
-            return _dataSet.Where(product => product.Id == key).FirstOrDefault();
+            return _collection.Where(product => product.Id == key).FirstOrDefault();
         }
 
         public override void Add(Product newProduct)
         {
-            var lastProduct = _dataSet.OrderByDescending(product => product.Id).FirstOrDefault();
+            var lastProduct = _collection.OrderByDescending(product => product.Id).FirstOrDefault();
             var id = 0;
             if (lastProduct != null)
             {

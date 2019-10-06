@@ -33,7 +33,7 @@ namespace UnitTestGroceryStoreAPI
         public async void TestToEnumerable()
         {
             var jsonStr = await RepositoryHelper.ReadFileAsync(Constants.DB_FILE);
-            var customers = RepositoryHelper.ToDataSet<Customer>(jsonStr);
+            var customers = RepositoryHelper.ToCollection<Customer>(jsonStr);
             Assert.True(customers.Count() > 0);
 
             var customer = customers.Where(c => c.Id == 1).FirstOrDefault();

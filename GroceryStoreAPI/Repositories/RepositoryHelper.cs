@@ -55,25 +55,29 @@ namespace GroceryStoreAPI.Repositories
             return JsonConvert.DeserializeObject<DataSchema>(jsonData);
         }
 
-        public static IEnumerable<TEntity> ToDataSet<TEntity>(string jsonData)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="jsonData"></param>
+        /// <returns></returns>
+        public static IEnumerable<TEntity> ToCollection<TEntity>(string jsonData)
         {
             DataSchema data = ToData(jsonData);
+            return (IEnumerable<TEntity>)data
+                .GetType()
+                .GetProperty(ToCollectionName(typeof(TEntity).Name))
+                .GetValue(data);
+        }
 
-            var entityName = typeof(TEntity).Name;
-            switch (entityName)
-            {
-                case Constants.CUSTOMER:
-                    return (IEnumerable<TEntity>)data.Customers;
-
-                case Constants.ORDER:
-                    return (IEnumerable<TEntity>)data.Orders;
-
-                case Constants.PRODUCT:
-                    return (IEnumerable<TEntity>)data.Products;
-
-                default:
-                    return null;
-            }
+        /// <summary>
+        /// Make the entity name plrual, and return it as a collection name
+        /// </summary>
+        /// <param name="entityName">entityName</param>
+        /// <returns>Returns a collection name</returns>
+        public static string ToCollectionName(string entityName)
+        {
+            return entityName + "s";
         }
     }
 }

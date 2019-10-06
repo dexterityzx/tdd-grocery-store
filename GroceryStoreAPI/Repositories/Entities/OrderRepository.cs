@@ -25,17 +25,17 @@ namespace GroceryStoreAPI.Repositories
 
         public override Order Key(int key)
         {
-            return _dataSet.Where(order => order.Id == key).FirstOrDefault();
+            return _collection.Where(order => order.Id == key).FirstOrDefault();
         }
 
         public IEnumerable<Order> GetByDate(string date)
         {
-            return _dataSet.Where(order => order.Date == date);
+            return _collection.Where(order => order.Date == date);
         }
 
         public IEnumerable<Order> GetByCustomerId(int customerId)
         {
-            return _dataSet.Where(order => order.CustomerId == customerId);
+            return _collection.Where(order => order.CustomerId == customerId);
         }
 
         public override void Add(Order entity)
