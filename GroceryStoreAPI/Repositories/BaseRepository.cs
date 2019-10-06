@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -230,8 +229,7 @@ namespace GroceryStoreAPI.Repositories
 
                 var NumberOfProcessedItem = ProcessStagedItems();
 
-                var json = JsonConvert.SerializeObject(_data, Formatting.Indented);
-                RepositoryHelper.WriteFile(_file, json);
+                RepositoryHelper.Save(_data, _file);
 
                 LoadCollection();
                 InitializeStagedEntities();

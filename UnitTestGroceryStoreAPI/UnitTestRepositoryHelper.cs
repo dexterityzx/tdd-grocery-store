@@ -1,5 +1,6 @@
 using GroceryStoreAPI.Entities;
 using GroceryStoreAPI.Repositories;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using UnitTestGroceryStoreAPI.Helpers;
@@ -52,6 +53,22 @@ namespace UnitTestGroceryStoreAPI
         }
 
         [Fact]
+        public async void TestSave()
+        {
+            var json = await TestFileReader.ReadFileAsync(Constants.DB_FILE_UPDATE_HELPER);
+            var beforeSaveData = RepositoryHelper.ToData(json);
+            RepositoryHelper.Save(beforeSaveData, Constants.DB_FILE_UPDATE_HELPER);
+
+            json = await TestFileReader.ReadFileAsync(Constants.DB_FILE_UPDATE_HELPER);
+            var afterSaveData = RepositoryHelper.ToData(json);
+
+            var jsonBeforeSave = JsonConvert.SerializeObject(beforeSaveData);
+            var jsonAfterSave = JsonConvert.SerializeObject(afterSaveData);
+
+            Assert.Equal(jsonBeforeSave, jsonAfterSave);
+        }
+
+        [Fact]
         public async void TestWriteFileMutipleThread()
         {
             var expectedJsonText = await TestFileReader.ReadFileAsync(Constants.DB_FILE);
@@ -59,11 +76,11 @@ namespace UnitTestGroceryStoreAPI
             var tasks = new Task[10];
             for (int i = 0; i < tasks.Length; i++)
             {
-                tasks[i] = Task.Run(() => RepositoryHelper.WriteFile(Constants.DB_FILE_UPDATE, expectedJsonText));
+                tasks[i] = Task.Run(() => RepositoryHelper.WriteFile(Constants.DB_FILE_UPDATE_HELPER, expectedJsonText));
             }
             Task.WaitAll(tasks);
 
-            var actualJsonText = RepositoryHelper.ReadFile(Constants.DB_FILE_UPDATE);
+            var actualJsonText = RepositoryHelper.ReadFile(Constants.DB_FILE_UPDATE_HELPER);
             Assert.Equal(expectedJsonText, actualJsonText);
         }
     }

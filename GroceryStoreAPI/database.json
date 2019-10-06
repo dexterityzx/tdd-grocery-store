@@ -1,80 +1,76 @@
 {
-  "Products": [
+  "customers": [
     {
-      "Id": 1,
-      "Description": "apple",
-      "Price": 0.5
+      "id": 1,
+      "name": "Bob"
     },
     {
-      "Id": 2,
-      "Description": "orange",
-      "Price": 0.75
+      "id": 2,
+      "name": "Mary"
     },
     {
-      "Id": 3,
-      "Description": "banana",
-      "Price": 0.85
+      "id": 3,
+      "name": "Joe"
     }
   ],
-  "Customers": [
+  "orders": [
     {
-      "Id": 1,
-      "Name": "Bob"
+      "id": 1,
+      "customerId": 1,
+      "date": "2019/05/01",
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "productId": 2,
+          "quantity": 3
+        }
+      ]
     },
     {
-      "Id": 2,
-      "Name": "Mary"
+      "id": 2,
+      "customerId": 2,
+      "date": "2019/05/02",
+      "items": [
+        {
+          "productId": 2,
+          "quantity": 3
+        },
+        {
+          "productId": 3,
+          "quantity": 4
+        }
+      ]
     },
     {
-      "Id": 3,
-      "Name": "Joe"
-    },
-    {
-      "Id": 4,
-      "Name": "hello33"
+      "id": 3,
+      "customerId": 2,
+      "date": "2019/05/03",
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 3
+        }
+      ]
     }
   ],
-  "Orders": [
+  "products": [
     {
-      "Id": 1,
-      "CustomerId": 1,
-      "Date": "2019/05/01",
-      "Items": [
-        {
-          "ProductId": 1,
-          "Quantity": 2
-        },
-        {
-          "ProductId": 2,
-          "Quantity": 3
-        }
-      ]
+      "id": 1,
+      "description": "apple",
+      "price": 0.50
     },
     {
-      "Id": 2,
-      "CustomerId": 2,
-      "Date": "2019/05/02",
-      "Items": [
-        {
-          "ProductId": 2,
-          "Quantity": 3
-        },
-        {
-          "ProductId": 3,
-          "Quantity": 4
-        }
-      ]
+      "id": 2,
+      "description": "orange",
+      "price": 0.75
     },
     {
-      "Id": 3,
-      "CustomerId": 2,
-      "Date": "2019/05/03",
-      "Items": [
-        {
-          "ProductId": 1,
-          "Quantity": 3
-        }
-      ]
+      "id": 3,
+      "description": "banana",
+      "price": 0.85
     }
   ]
 }

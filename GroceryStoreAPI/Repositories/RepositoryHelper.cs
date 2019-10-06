@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -28,10 +29,20 @@ namespace GroceryStoreAPI.Repositories
             }
         }
 
-        public static void Save(DataSchema data)
+        public static void Save(DataSchema data, string file)
         {
-            var json = JsonConvert.SerializeObject(data, Formatting.Indented);
-            WriteFile(Constants.DB_FILE, json);
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
+            string json = JsonConvert.SerializeObject(data, new JsonSerializerSettings
+            {
+                ContractResolver = contractResolver,
+                Formatting = Formatting.Indented
+            });
+
+            WriteFile(file, json);
         }
 
         public static void WriteFile(string file, string json)
