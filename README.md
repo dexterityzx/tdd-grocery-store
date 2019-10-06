@@ -16,3 +16,6 @@ This exercise is intentionally left open ended.  Within you will find a skeleton
 
 # Expectations
 Implement the above listed requirements in a manner you see fitting.  Demonstrate design and implementation aspects you feel are important in a software project.
+
+# Manual
+Build and run. Go to the swagger page at https://{host}/swagger/index.html. Test the API by following the specs on swagger. 
