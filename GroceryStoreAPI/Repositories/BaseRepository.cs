@@ -191,29 +191,16 @@ namespace GroceryStoreAPI.Repositories
             var collection = GetCollection(updatedEntity.GetType());
             if (collection == null) return 0;
 
-            // loop through collection to find the entity. Stop when we find first one.
-            var stop = false;
-            collection.ForEach(entity =>
+            var index = 0;
+            //find the index of entity with the same key
+            foreach (var entity in collection)
             {
-                if (stop) return;
-
                 var currentEntitykey = (int)entity.GetType().GetProperty(stagedItem.PrimaryKeyName).GetValue(entity);
-                if (currentEntitykey != updatedEntityKey) return;
+                if (currentEntitykey == updatedEntityKey) break;
 
-                //loop through properties to copy values from new entity
-                Type entityType = entity.GetType();
-                PropertyInfo[] properties = entityType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                foreach (PropertyInfo property in properties)
-                {
-                    if (property.Name != stagedItem.PrimaryKeyName && property.CanWrite)
-                    {
-                        var newValue = updatedEntity.GetType().GetProperty(property.Name).GetValue(updatedEntity);
-                        property.SetValue(entity, newValue);
-                    }
-                }
-
-                stop = true;
-            });
+                index++;
+            }
+            collection[index] = stagedItem.Entity;
             return 1;
         }
 
