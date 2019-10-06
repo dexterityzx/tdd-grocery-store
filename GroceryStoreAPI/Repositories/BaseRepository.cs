@@ -157,7 +157,7 @@ namespace GroceryStoreAPI.Repositories
         }
 
         /// <summary>
-        /// Add an entity to Collection from staged item
+        /// Adds an entity to collection, copies entities from staged item
         /// </summary>
         /// <param name="stagedItem"></param>
         /// <returns> if success return 1, else 0</returns>
@@ -178,7 +178,7 @@ namespace GroceryStoreAPI.Repositories
         }
 
         /// <summary>
-        /// Update an entity to Collection from staged item
+        /// Updates an entity in the collection, copies properties from staged item
         /// </summary>
         /// <param name="stagedItem"></param>
         /// <returns>if success return 1, else 0</returns>
@@ -218,7 +218,7 @@ namespace GroceryStoreAPI.Repositories
         }
 
         /// <summary>
-        /// Write staged items to json file
+        /// Writes the staged items to the json file
         /// </summary>
         /// <returns></returns>
         public virtual int Save()
@@ -242,6 +242,10 @@ namespace GroceryStoreAPI.Repositories
             }
         }
 
+        /// <summary>
+        /// Returns the collection.
+        /// </summary>
+        /// <returns>The collection</returns>
         public IEnumerable<TEntity> All()
         {
             return _collection;

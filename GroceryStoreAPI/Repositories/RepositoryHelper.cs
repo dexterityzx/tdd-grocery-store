@@ -11,6 +11,11 @@ namespace GroceryStoreAPI.Repositories
     {
         private static ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
 
+        /// <summary>
+        /// Reads a file into string
+        /// </summary>
+        /// <param name="file">file path</param>
+        /// <returns>string of the file</returns>
         public static string ReadFile(string file)
         {
             using (var reader = File.OpenText(file))
@@ -20,6 +25,11 @@ namespace GroceryStoreAPI.Repositories
             }
         }
 
+        /// <summary>
+        /// Reads a file into string async
+        /// </summary>
+        /// <param name="file">file path</param>
+        /// <returns>string of the file</returns>
         public static async Task<string> ReadFileAsync(string file)
         {
             using (var reader = File.OpenText(file))
@@ -29,6 +39,11 @@ namespace GroceryStoreAPI.Repositories
             }
         }
 
+        /// <summary>
+        /// Saves the data into the file in JSON
+        /// </summary>
+        /// <param name="data">data to save</param>
+        /// <param name="file">file path</param>
         public static void Save(DataSchema data, string file)
         {
             DefaultContractResolver contractResolver = new DefaultContractResolver
@@ -38,21 +53,26 @@ namespace GroceryStoreAPI.Repositories
 
             string json = JsonConvert.SerializeObject(data, new JsonSerializerSettings
             {
-                ContractResolver = contractResolver,
-                Formatting = Formatting.Indented
+                ContractResolver = contractResolver, // make output camel case
+                Formatting = Formatting.Indented //format the json file
             });
 
             WriteFile(file, json);
         }
 
-        public static void WriteFile(string file, string json)
+        /// <summary>
+        /// Thread safe function to write a string into a file.
+        /// </summary>
+        /// <param name="file">file path</param>
+        /// <param name="str">string to write to the file</param>
+        public static void WriteFile(string file, string str)
         {
             _lock.EnterWriteLock();
             try
             {
                 using (StreamWriter writer = new StreamWriter(file, false))
                 {
-                    writer.Write(json);
+                    writer.Write(str);
                 }
             }
             finally
@@ -61,6 +81,11 @@ namespace GroceryStoreAPI.Repositories
             }
         }
 
+        /// <summary>
+        /// Transfers json string into DataSchema object
+        /// </summary>
+        /// <param name="jsonData">json string</param>
+        /// <returns></returns>
         public static DataSchema ToData(string jsonData)
         {
             return JsonConvert.DeserializeObject<DataSchema>(jsonData);
@@ -82,7 +107,7 @@ namespace GroceryStoreAPI.Repositories
         }
 
         /// <summary>
-        /// Make the entity name plrual, and return it as a collection name
+        /// Makes the entity name plrual, and return it as a collection name
         /// </summary>
         /// <param name="entityName">entityName</param>
         /// <returns>Returns a collection name</returns>

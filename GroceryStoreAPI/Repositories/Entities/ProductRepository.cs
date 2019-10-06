@@ -29,6 +29,7 @@ namespace GroceryStoreAPI.Repositories
 
         public override void Add(Product newProduct)
         {
+            //find the max primary key and increase by 1
             var lastProduct = _collection.OrderByDescending(product => product.Id).FirstOrDefault();
             var id = 0;
             if (lastProduct != null)
