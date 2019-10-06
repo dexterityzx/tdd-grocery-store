@@ -56,5 +56,35 @@ namespace GroceryStoreAPI.Controllers
 
             return new OkObjectResult(orders);
         }
+
+        // PUT api/customers/
+        [HttpPut]
+        public ActionResult<int> CreateCustomer(Customer customer)
+        {
+            _customerRepository.Add(customer);
+            var result = _customerRepository.Save();
+            if (result == 0)
+            {
+                return StatusCode(500);
+            }
+            return Accepted();
+        }
+
+        // PATCH api/customers/
+        [HttpPatch]
+        public ActionResult<int> UpdateCustomer(Customer customer)
+        {
+            if (!_customerRepository.Exist(customer.Id))
+            {
+                return NotFound();
+            }
+            _customerRepository.Update(customer);
+            var result = _customerRepository.Save();
+            if (result == 0)
+            {
+                return StatusCode(500);
+            }
+            return Accepted();
+        }
     }
 }

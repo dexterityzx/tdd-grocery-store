@@ -41,6 +41,11 @@ namespace GroceryStoreAPI.Repositories
             _addedEntities.Add(entity);
         }
 
+        public virtual bool Exist(int key)
+        {
+            return Key(key) != null;
+        }
+
         public virtual void Update(TEntity entity, string key = "Id")
         {
             _updatedEntities.Add(Tuple.Create(entity, key));

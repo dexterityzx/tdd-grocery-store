@@ -24,12 +24,19 @@ namespace UnitTestGroceryStoreAPI
 
         [Theory]
         [ClassData(typeof(TestCustomerData))]
-        public void CustomerRepositoryCanRetrieveCustomerByKey(string key, Customer expectedCustomer)
+        public void CustomerRepositoryCanRetrieveCustomerByKey(int key, Customer expectedCustomer)
         {
             Customer actualCustomer = _customerRepository.Key(key);
             var jsonActual = JsonConvert.SerializeObject(actualCustomer);
             var jsonExpected = JsonConvert.SerializeObject(expectedCustomer);
             Assert.Equal(jsonExpected, jsonActual);
+        }
+
+        [Theory]
+        [ClassData(typeof(TestCustomerData))]
+        public void CustomerRepositoryCanCheckExistenceByKey(int key, Customer expectedCustomer)
+        {
+            Assert.True(_customerRepository.Exist(key));
         }
 
         [Theory]
